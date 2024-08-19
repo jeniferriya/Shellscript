@@ -1,13 +1,21 @@
 #!/bin/bash
-sudo yum install wget unzip httpd -y 
-systemctl start httpd
-systemctl enable httpd
-mkdir -p /tmp/webfiles
-cd /tmp/webfiles
-wget https://www.tooplate.com/zip-templates/2137_barista_cafe.zip
-unzip 2137_barista_cafe
-sudo cp -r 2137_barista_cafe/* /var/www/html/
-systemctl restart httpd
-rm -f /tmp/webfiles
-sudo systemctl status httpd
+
+### Using Variable
+PACKAGE=wget unzip httpd
+SVC=httpd
+TMPDIR=/tmp/webfiles
+URL=https://www.tooplate.com/zip-templates/2137_barista_cafe.zip
+ART_NAME=2137_barista_cafe
+
+sudo yum install $PACKAGE -y 
+systemctl start $SVC
+systemctl enable $SVC
+mkdir -p $TMPDIR
+cd $TMPDIR
+wget $URL
+unzip $ART_NAME.zip
+sudo cp -r $ART_NAME/* /var/www/html/
+systemctl restart $SVC
+rm -f $TMPDIR
+sudo systemctl status $SVC
 ls /var/www/html/
